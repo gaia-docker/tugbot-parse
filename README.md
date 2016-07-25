@@ -4,7 +4,7 @@
 ##How to install:
 
 ```bash
-go github.com/gaia-docker/tugbot-parses
+go get github.com/gaia-docker/tugbot-parses
 ```
 
 ##How to use
