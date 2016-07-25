@@ -1,5 +1,5 @@
 # tugbot-parse
-*tugbot-parse* is a small utility for converting a JUnit XML into JSON that will be index into elasticsearch in order analyze using kibana
+*tugbot-parse* is a small utility for converting a JUnit XML into JSON.
 
 ##How to install:
 
