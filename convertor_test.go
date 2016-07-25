@@ -12,14 +12,16 @@ func TestJunitToTestSet(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 0.149, testSet.Time)
 	assert.Equal(t, 5, len(testSet.Tests))
-	assert.NotEqual(t, "", getFailure(testSet.Tests))
+	failureTest := getFailureTest(testSet.Tests)
+	assert.NotEqual(t, "", failureTest.Failure)
+	assert.Equal(t, "Failed", failureTest.Status)
 }
 
-func getFailure(tests []Test) string {
-	ret := ""
+func getFailureTest(tests []Test) Test {
+	var ret Test
 	for _, currTest := range tests {
 		if currTest.Failure != "" {
-			ret = currTest.Failure
+			ret = currTest
 			break
 		}
 	}

@@ -13,6 +13,7 @@ type TestSet struct {
 
 type Test struct {
 	Name    string
+	Status  string
 	Time    float64
 	Failure string
 }
@@ -34,6 +35,7 @@ func ToTestSet(junit []byte) (*TestSet, error) {
 				Time:    toFloat(currTestCase.Time),
 				Failure: currTestCase.Failure,
 			}
+			test.Status = getStatus(currTestCase)
 			ret.Tests = append(ret.Tests, test)
 		}
 	}
@@ -46,6 +48,15 @@ func toFloat(val string) float64 {
 	if err != nil {
 		log.Error(err)
 		return -1
+	}
+
+	return ret
+}
+
+func getStatus(test JunitTestCase) string {
+	ret := "Passed"
+	if test.Failure != "" {
+		ret = "Failed"
 	}
 
 	return ret
