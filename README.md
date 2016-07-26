@@ -1,4 +1,8 @@
 # tugbot-parse
+
+[![CircleCI](https://circleci.com/gh/gaia-docker/tugbot-parse.svg?style=shield)](https://circleci.com/gh/gaia-docker/tugbot-parse)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gaia-docker/tugbot-parse)](https://goreportcard.com/report/github.com/gaia-docker/tugbot-parse)
+
 *tugbot-parse* is a small utility for converting a JUnit XML into JSON.
 
 ##How to install:
