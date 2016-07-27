@@ -1,17 +1,9 @@
 package parse
 
 import (
-	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"strconv"
 )
-
-//Make sure that when we marshal there will always be a precise point after the number (e.g. - 1.000)
-type FloatNumber float64
-
-func (n FloatNumber) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("%f", n)), nil
-}
 
 type TestSet struct {
 	Name     string
