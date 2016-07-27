@@ -1,4 +1,7 @@
 test:
+  override:
+    - go test -coverprofile=$CIRCLE_TEST_REPORTS
+    - go tool cover -func=$CIRCLE_TEST_REPORTS
   post:
     - bash <(curl -s https://codecov.io/bash)
 notify:
