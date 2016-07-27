@@ -3,11 +3,18 @@ package parse
 import (
 	log "github.com/Sirupsen/logrus"
 	"strconv"
+	"fmt"
 )
+
+//Make sure that when we marshal there will always be a precise point after the number (e.g. - 1.000)
+type FloatNumber float64
+func (n FloatNumber) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf("%f", n)), nil
+}
 
 type TestSet struct {
 	Name     string
-	Time     float64
+	Time     FloatNumber
 	Total    int
 	Failures int
 	Errors   int
@@ -18,7 +25,7 @@ type TestSet struct {
 type Test struct {
 	Name    string
 	Status  string
-	Time    float64
+	Time    FloatNumber
 	Failure string
 }
 
@@ -51,14 +58,14 @@ func ToTestSet(junit []byte) (*TestSet, error) {
 	return &ret, nil
 }
 
-func toFloat(val string) float64 {
+func toFloat(val string) FloatNumber {
 	ret, err := strconv.ParseFloat(val, 64)
 	if err != nil {
 		log.Error(err)
 		return -1
 	}
 
-	return ret
+	return FloatNumber(ret)
 }
 
 func toInt(val string) int {
