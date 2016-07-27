@@ -34,6 +34,12 @@ func TestJunitToTestSet_SkippedTest(t *testing.T) {
 	assert.Equal(t, 1, len(getSkippedTests(testSet.Tests)))
 }
 
+func TestToTestSet_InvalidXML(t *testing.T) {
+	log.Info("TestToTestSet_InvalidXML")
+	_, err := ToTestSet([]byte("abc"))
+	assert.Error(t, err)
+}
+
 func getFailureTests(tests []Test) []Test {
 	var ret []Test
 	for _, currTest := range tests {
