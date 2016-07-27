@@ -29,6 +29,18 @@ func TestMochaXunitTestSuite(t *testing.T) {
 	assert.Equal(t, "0", suite.Skipped, "Skipped")
 }
 
+func TestMochaXunitTestSuiteWithSkippedTest(t *testing.T) {
+	log.Info("TestMochaXunitTestSuite")
+	suite, err := toJunitTestSuite([]byte(getMockMochaXunitWithSkippedTest()))
+	assert.NoError(t, err)
+	assert.Equal(t, 5, len(suite.TestCases))
+	assert.Equal(t, "5", suite.Total, "Total")
+	assert.Equal(t, "4", suite.Failures, "Failures")
+	assert.Equal(t, "4", suite.Errors, "Errors")
+	assert.Equal(t, "1", suite.Skipped, "Skipped")
+	log.Infof("%+v", suite)
+}
+
 func getMockJunit() string {
 
 	// TEST-com.hp.mqm.testbox.service.TestResultServiceImplGherkinITCase.xml
@@ -237,4 +249,37 @@ AssertionError: expected -1 to be above -1
    at process._tickCallback (internal/process/next_tick.js:98:9)</failure></testcase>
 <testcase classname="Functional tests - voting" name="vote cats" time="0.01"/>
 </testsuite>`
+}
+
+func getMockMochaXunitWithSkippedTest() string {
+
+	return `
+		<testsuite name="Mocha Tests" tests="5" failures="4" errors="4" skipped="1" timestamp="Wed, 27 Jul 2016 09:37:27 GMT" time="4.045">
+			<testcase classname="Integration tests - voting" name="check database before voting" time="2.002">
+				<failure>timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+					Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.</failure></testcase>
+					<testcase classname="Integration tests - voting" name="vote cats and verify" time="0"><failure>Cannot read property 'statusCode' of undefined
+					TypeError: Cannot read property 'statusCode' of undefined
+					    at Request._callback (specs/e2e/voting-e2e-test.js:50:18)
+					    at self.callback (node_modules/request/request.js:187:22)
+					    at Request.onRequestError (node_modules/request/request.js:813:8)
+					    at Socket.socketErrorListener (_http_client.js:306:9)
+					    at emitErrorNT (net.js:1265:8)
+					    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+					    at process._tickCallback (internal/process/next_tick.js:98:9)
+			    	</failure>
+			    </testcase>
+			<testcase classname="Integration tests - voting" name="check database after voting" time="2.002"><failure>timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+			Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.</failure></testcase>
+			<testcase classname="Functional tests - voting" name="open ui and check title" time="0"><failure>Cannot read property 'statusCode' of undefined
+			TypeError: Cannot read property 'statusCode' of undefined
+			    at Request._callback (specs/functional/vote-page-test.js:24:18)
+			    at self.callback (node_modules/request/request.js:187:22)
+			    at Request.onRequestError (node_modules/request/request.js:813:8)
+			    at Socket.socketErrorListener (_http_client.js:306:9)
+			    at emitErrorNT (net.js:1265:8)
+			    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+			    at process._tickCallback (internal/process/next_tick.js:98:9)</failure></testcase>
+			<testcase classname="Functional tests - voting" name="vote cats" time="0"><skipped>aaa</skipped></testcase>
+		</testsuite>`
 }

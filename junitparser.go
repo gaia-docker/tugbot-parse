@@ -15,9 +15,10 @@ type JunitTestSuite struct {
 }
 
 type JunitTestCase struct {
-	Name    string `xml:"name,attr"`
-	Time    string `xml:"time,attr"`
-	Failure string `xml:"failure"`
+	Name    string   `xml:"name,attr"`
+	Time    string   `xml:"time,attr"`
+	Failure string   `xml:"failure"`
+	Skipped xml.Name `xml:"skipped"`
 }
 
 func toJunitTestSuite(junit []byte) (*JunitTestSuite, error) {
