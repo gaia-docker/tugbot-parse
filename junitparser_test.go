@@ -41,6 +41,12 @@ func TestMochaXunitTestSuiteWithSkippedTest(t *testing.T) {
 	log.Infof("%+v", suite)
 }
 
+func TestToTestSuite_InvalidXML(t *testing.T) {
+	log.Info("TestToTestSuite_InvalidXML")
+	_, err := toJunitTestSuite([]byte("abc"))
+	assert.Error(t, err)
+}
+
 func getMockJunit() string {
 
 	// TEST-com.hp.mqm.testbox.service.TestResultServiceImplGherkinITCase.xml
