@@ -38,7 +38,6 @@ func TestMochaXunitTestSuiteWithSkippedTest(t *testing.T) {
 	assert.Equal(t, "4", suite.Failures, "Failures")
 	assert.Equal(t, "4", suite.Errors, "Errors")
 	assert.Equal(t, "1", suite.Skipped, "Skipped")
-	log.Infof("%+v", suite)
 }
 
 func TestToTestSuite_InvalidXML(t *testing.T) {

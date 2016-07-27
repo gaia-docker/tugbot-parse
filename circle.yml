@@ -1,10 +1,31 @@
+machine:
+  pre:
+    - sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.1-circleci'
+    - sudo chmod 0755 /usr/bin/docker
+  services:
+    - docker
+  environment:
+    BUILDER_IMAGE_NAME: gaiadocker/tugbot-parse-builder
+dependencies:
+  override:
+    - chmod u+x script/go_build.sh script/coverage.sh
+    # create builder image
+    - docker build -t $BUILDER_IMAGE_NAME -f Dockerfile.build .
+    # run go build in a docker container
+    - docker run --rm -v "$PWD":/go/src/github.com/gaia-docker/tugbot-parse $BUILDER_IMAGE_NAME script/go_build.sh
 test:
   override:
-    - go test -coverprofile=coverage.out
-    - go tool cover -func=coverage.out
-    - cp coverage.out $CIRCLE_TEST_REPORTS
+    # run tugbot tests and generate junit.xml reports
+    - docker run --rm -v "$PWD":/go/src/github.com/gaia-docker/tugbot-parse $BUILDER_IMAGE_NAME script/coverage.sh
   post:
-    - bash <(curl -s https://codecov.io/bash)
+    # copy test results
+    - cp .cover/*_tests.xml $CIRCLE_TEST_REPORTS
+    # deploy test coverage results to codecov
+    - bash <(curl -s https://codecov.io/bash) -f .cover/cover.out
 notify:
   webhooks:
     - url: https://webhook.master.gaiahub.io/wh/5a866f9b-98c9-438d-a8d4-53cf4ae9599c/4c310c8e220ee9bead74eece42ce0e109fd3535e
+general:
+  artifacts:
+    - .dist
+    - .cover
