@@ -1,0 +1,5 @@
+package: github.com/gaia-docker/tugbot-parse
+import:
+- package: github.com/Sirupsen/logrus
+  subpackages:
+  - github.com\Sirupsen\logrus
