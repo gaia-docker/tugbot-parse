@@ -7,6 +7,10 @@ import (
 type JunitTestSuite struct {
 	Name      string          `xml:"name,attr"`
 	Time      string          `xml:"time,attr"`
+	Total     string          `xml:"tests,attr"`
+	Failures  string          `xml:"failures,attr"`
+	Errors    string          `xml:"errors,attr"`
+	Skipped   string          `xml:"skipped,attr"`
 	TestCases []JunitTestCase `xml:"testcase"`
 }
 

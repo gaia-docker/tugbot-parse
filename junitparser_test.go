@@ -11,6 +11,11 @@ func TestJavaJunitTestSuite(t *testing.T) {
 	suite, err := toJunitTestSuite([]byte(getMockJunit()))
 	assert.NoError(t, err)
 	assert.Equal(t, 5, len(suite.TestCases))
+	assert.Equal(t, 5, len(suite.TestCases))
+	assert.Equal(t, "5", suite.Total, "Total")
+	assert.Equal(t, "1", suite.Failures, "Failures")
+	assert.Equal(t, "0", suite.Errors, "Errors")
+	assert.Equal(t, "0", suite.Skipped, "Skipped")
 }
 
 func TestMochaXunitTestSuite(t *testing.T) {
@@ -18,6 +23,10 @@ func TestMochaXunitTestSuite(t *testing.T) {
 	suite, err := toJunitTestSuite([]byte(getMockMochaXunit()))
 	assert.NoError(t, err)
 	assert.Equal(t, 5, len(suite.TestCases))
+	assert.Equal(t, "5", suite.Total, "Total")
+	assert.Equal(t, "1", suite.Failures, "Failures")
+	assert.Equal(t, "1", suite.Errors, "Errors")
+	assert.Equal(t, "0", suite.Skipped, "Skipped")
 }
 
 func getMockJunit() string {
