@@ -3,7 +3,6 @@ test:
     - go test -coverprofile=coverage.out
     - go tool cover -func=coverage.out
     - cp coverage.out $CIRCLE_TEST_REPORTS
-
   post:
     - bash <(curl -s https://codecov.io/bash)
 notify:
