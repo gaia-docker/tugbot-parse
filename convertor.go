@@ -1,13 +1,14 @@
 package parse
 
 import (
+	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"strconv"
-	"fmt"
 )
 
 //Make sure that when we marshal there will always be a precise point after the number (e.g. - 1.000)
 type FloatNumber float64
+
 func (n FloatNumber) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("%f", n)), nil
 }
@@ -80,7 +81,9 @@ func toInt(val string) int {
 
 func getStatus(test JunitTestCase) string {
 	ret := "Passed"
-	if test.Failure != "" {
+	if test.Skipped.Local != "" {
+		ret = "Skipped"
+	} else if test.Failure != "" {
 		ret = "Failed"
 	}
 
