@@ -241,17 +241,20 @@ func getMockMochaXunit2() string {
 		<testcase classname="Integration tests - voting" name="check database before voting" time="0.047"/>
 		<testcase classname="Integration tests - voting" name="vote cats and verify" time="0.045"/>
 		<testcase classname="Integration tests - voting" name="check database after voting" time="0.013"/>
-		<testcase classname="Functional tests - voting" name="open ui and check title" time="0"><failure>expected -1 to be above -1
-		AssertionError: expected -1 to be above -1
-		   at Assertion.assertAbove (node_modules/chai/lib/chai/core/assertions.js:571:12)
-		   at Assertion.ctx.(anonymous function) [as above] (node_modules/chai/lib/chai/utils/addMethod.js:41:25)
-		   at Request._callback (specs/functional/vote-page-test.js:27:97)
-		   at Request.self.callback (node_modules/request/request.js:187:22)
-		   at Request.&lt;anonymous&gt; (node_modules/request/request.js:1044:10)
-		   at IncomingMessage.&lt;anonymous&gt; (node_modules/request/request.js:965:12)
-		   at endReadableNT (_stream_readable.js:913:12)
-		   at _combinedTickCallback (internal/process/next_tick.js:74:11)
-		   at process._tickCallback (internal/process/next_tick.js:98:9)</failure></testcase>
+		<testcase classname="Functional tests - voting" name="open ui and check title" time="0">
+			<failure>expected -1 to be above -1
+			AssertionError: expected -1 to be above -1
+			   at Assertion.assertAbove (node_modules/chai/lib/chai/core/assertions.js:571:12)
+			   at Assertion.ctx.(anonymous function) [as above] (node_modules/chai/lib/chai/utils/addMethod.js:41:25)
+			   at Request._callback (specs/functional/vote-page-test.js:27:97)
+			   at Request.self.callback (node_modules/request/request.js:187:22)
+			   at Request.&lt;anonymous&gt; (node_modules/request/request.js:1044:10)
+			   at IncomingMessage.&lt;anonymous&gt; (node_modules/request/request.js:965:12)
+			   at endReadableNT (_stream_readable.js:913:12)
+			   at _combinedTickCallback (internal/process/next_tick.js:74:11)
+			   at process._tickCallback (internal/process/next_tick.js:98:9)
+			</failure>
+		</testcase>
 		<testcase classname="Functional tests - voting" name="vote cats" time="0.01"/>
 		</testsuite>`
 }
