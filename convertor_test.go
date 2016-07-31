@@ -18,7 +18,7 @@ func TestJunitToTestSet(t *testing.T) {
 	assert.Equal(t, 0, testSet.Skipped, "Skipped")
 	failureTests := getFailureTests(testSet.Tests)
 	assert.Equal(t, 1, len(failureTests))
-	assert.Equal(t, "Failed", failureTests[0].Status)
+	assert.Equal(t, Failed, failureTests[0].Status)
 }
 
 func TestJunitToTestSet_SkippedTest(t *testing.T) {
@@ -54,7 +54,7 @@ func getFailureTests(tests []Test) []Test {
 func getSkippedTests(tests []Test) []Test {
 	var ret []Test
 	for _, currTest := range tests {
-		if currTest.Status == "Skipped" {
+		if currTest.Status == Skipped {
 			ret = append(ret, currTest)
 		}
 	}

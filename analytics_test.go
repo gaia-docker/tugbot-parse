@@ -37,7 +37,7 @@ func getFailureAnalyticsTests(tests []AnalyticsTest) []AnalyticsTest {
 func getPassedAnalyticsTests(tests []AnalyticsTest) []AnalyticsTest {
 	var ret []AnalyticsTest
 	for _, currTest := range tests {
-		if currTest.Failure == "" {
+		if currTest.Status == Passed {
 			ret = append(ret, currTest)
 		}
 	}

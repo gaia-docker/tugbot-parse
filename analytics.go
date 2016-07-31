@@ -42,12 +42,13 @@ func ToAnalyticsTests(junit []byte) ([]AnalyticsTest, error) {
 
 func toNumericStatus(status string) int {
 	ret := 0
-	if status != "Passed" {
+	if status != Passed {
 		ret = 1
 	}
 
 	return ret
 }
+
 func getAnalyticsTestSet(testSet *TestSet) AnalyticsTestSet {
 
 	return AnalyticsTestSet{

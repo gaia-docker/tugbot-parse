@@ -5,6 +5,12 @@ import (
 	"strconv"
 )
 
+const (
+	Passed  = "Passed"
+	Skipped = "Skipped"
+	Failed  = "Failed"
+)
+
 type TestSet struct {
 	Name     string
 	Time     FloatNumber
@@ -72,11 +78,11 @@ func toInt(val string) int {
 }
 
 func getStatus(test JunitTestCase) string {
-	ret := "Passed"
+	ret := Passed
 	if test.Skipped.Local != "" {
-		ret = "Skipped"
+		ret = Skipped
 	} else if test.Failure != "" {
-		ret = "Failed"
+		ret = Failed
 	}
 
 	return ret
