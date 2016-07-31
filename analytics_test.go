@@ -17,13 +17,27 @@ func TestToAnalyticsTests(t *testing.T) {
 	assert.Equal(t, 1, analyticsTestSet.Failures, "Failures")
 	assert.Equal(t, 1, analyticsTestSet.Errors, "Errors")
 	assert.Equal(t, 0, analyticsTestSet.Skipped, "Skipped")
-	assert.Equal(t, 1, len(getFailureAnalyticsTests(analyticsTests)))
+	failureAnalyticsTests := getFailureAnalyticsTests(analyticsTests)
+	assert.Equal(t, 1, len(failureAnalyticsTests))
+	assert.Equal(t, 1, failureAnalyticsTests[0].NumericStatus)
+	assert.Equal(t, 0, getPassedAnalyticsTests(analyticsTests)[0].NumericStatus)
 }
 
 func getFailureAnalyticsTests(tests []AnalyticsTest) []AnalyticsTest {
 	var ret []AnalyticsTest
 	for _, currTest := range tests {
 		if currTest.Failure != "" {
+			ret = append(ret, currTest)
+		}
+	}
+
+	return ret
+}
+
+func getPassedAnalyticsTests(tests []AnalyticsTest) []AnalyticsTest {
+	var ret []AnalyticsTest
+	for _, currTest := range tests {
+		if currTest.Failure == "" {
 			ret = append(ret, currTest)
 		}
 	}

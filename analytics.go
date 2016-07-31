@@ -10,11 +10,12 @@ type AnalyticsTestSet struct {
 }
 
 type AnalyticsTest struct {
-	Name    string
-	Status  string
-	Time    FloatNumber
-	Failure string
-	TestSet AnalyticsTestSet
+	Name          string
+	Time          FloatNumber
+	Failure       string
+	Status        string
+	NumericStatus int
+	TestSet       AnalyticsTestSet
 }
 
 func ToAnalyticsTests(junit []byte) ([]AnalyticsTest, error) {
@@ -28,16 +29,25 @@ func ToAnalyticsTests(junit []byte) ([]AnalyticsTest, error) {
 	for _, currTest := range testSet.Tests {
 		ret = append(ret,
 			AnalyticsTest{
-				Name:    currTest.Name,
-				Status:  currTest.Status,
-				Time:    currTest.Time,
-				Failure: currTest.Failure,
-				TestSet: analyticsTestSet})
+				Name:          currTest.Name,
+				Status:        currTest.Status,
+				Time:          currTest.Time,
+				Failure:       currTest.Failure,
+				NumericStatus: toNumericStatus(currTest.Status),
+				TestSet:       analyticsTestSet})
 	}
 
 	return ret, nil
 }
 
+func toNumericStatus(status string) int {
+	ret := 0
+	if status != "Passed" {
+		ret = 1
+	}
+
+	return ret
+}
 func getAnalyticsTestSet(testSet *TestSet) AnalyticsTestSet {
 
 	return AnalyticsTestSet{
