@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// Test Status
 const (
 	Passed  = "Passed"
 	Skipped = "Skipped"
@@ -13,7 +14,7 @@ const (
 
 type TestSet struct {
 	Name     string
-	Time     FloatNumber
+	Time     float64
 	Total    int
 	Failures int
 	Errors   int
@@ -24,7 +25,7 @@ type TestSet struct {
 type Test struct {
 	Name    string
 	Status  string
-	Time    FloatNumber
+	Time    float64
 	Failure string
 }
 
@@ -57,14 +58,14 @@ func ToTestSet(junit []byte) (*TestSet, error) {
 	return &ret, nil
 }
 
-func toFloat(val string) FloatNumber {
+func toFloat(val string) float64 {
 	ret, err := strconv.ParseFloat(val, 64)
 	if err != nil {
 		log.Error(err)
 		return -1
 	}
 
-	return FloatNumber(ret)
+	return ret
 }
 
 func toInt(val string) int {

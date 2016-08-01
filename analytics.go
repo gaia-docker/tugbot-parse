@@ -31,7 +31,7 @@ func ToAnalyticsTests(junit []byte) ([]AnalyticsTest, error) {
 			AnalyticsTest{
 				Name:          currTest.Name,
 				Status:        currTest.Status,
-				Time:          currTest.Time,
+				Time:          FloatNumber(currTest.Time),
 				Failure:       currTest.Failure,
 				NumericStatus: toNumericStatus(currTest.Status),
 				TestSet:       analyticsTestSet})
@@ -53,7 +53,7 @@ func getAnalyticsTestSet(testSet *TestSet) AnalyticsTestSet {
 
 	return AnalyticsTestSet{
 		Name:     testSet.Name,
-		Time:     testSet.Time,
+		Time:     FloatNumber(testSet.Time),
 		Total:    testSet.Total,
 		Failures: testSet.Failures,
 		Errors:   testSet.Errors,
