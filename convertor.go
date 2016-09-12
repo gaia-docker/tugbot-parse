@@ -85,7 +85,7 @@ func toInt(val string) int {
 
 func getStatus(test JunitTestCase) string {
 	ret := Passed
-	if test.Skipped.Local != "" {
+	if test.Skipped != "" {
 		ret = Skipped
 	} else if test.Failure != "" {
 		ret = Failed
