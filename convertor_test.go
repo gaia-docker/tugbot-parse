@@ -19,6 +19,8 @@ func TestJunitToTestSet(t *testing.T) {
 	failureTests := getFailureTests(testSet.Tests)
 	assert.Equal(t, 1, len(failureTests))
 	assert.Equal(t, Failed, failureTests[0].Status)
+	assert.Equal(t, "", failureTests[0].Error, "Check Test's Error is empty - Failure should be with data")
+	assert.NotEqual(t, "", failureTests[0].Failure, "Check that Test's Failure contains something (the exception)")
 }
 
 func TestJunitToTestSet_SkippedTest(t *testing.T) {
@@ -45,6 +47,8 @@ func TestJunitToTestSet_ErrorTest(t *testing.T) {
 	assert.Equal(t, 1, testSet.Errors, "Errors")
 	assert.Equal(t, 0, testSet.Skipped, "Skipped") //if property not exist we return 0
 	assert.Equal(t, Error, testSet.Tests[0].Status, "Check Test's status")
+	assert.NotEqual(t, "", testSet.Tests[0].Error, "Check that Test's Error contains something (the exception)")
+	assert.Equal(t, "", testSet.Tests[0].Failure, "Check Test's Failure is empty - Error should be with data")
 }
 
 func TestToTestSet_InvalidXML(t *testing.T) {

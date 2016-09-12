@@ -299,7 +299,7 @@ func getMockMochaXunitWithSkippedTest() string {
 			    at emitErrorNT (net.js:1265:8)
 			    at _combinedTickCallback (internal/process/next_tick.js:74:11)
 			    at process._tickCallback (internal/process/next_tick.js:98:9)</failure></testcase>
-			<testcase classname="Functional tests - voting" name="vote cats" time="0"><skipped>aaa</skipped></testcase>
+			<testcase classname="Functional tests - voting" name="vote cats" time="0"><skipped/></testcase>
 		</testsuite>`
 }
 

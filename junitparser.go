@@ -18,7 +18,7 @@ type JunitTestCase struct {
 	Name    string   `xml:"name,attr"`
 	Time    string   `xml:"time,attr"`
 	Failure string   `xml:"failure"`
-	Skipped string `xml:"skipped"`
+	Skipped xml.Name `xml:"skipped"`
 	Error   string   `xml:"error"`
 }
 
