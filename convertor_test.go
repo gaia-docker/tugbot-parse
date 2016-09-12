@@ -34,6 +34,19 @@ func TestJunitToTestSet_SkippedTest(t *testing.T) {
 	assert.Equal(t, 1, len(getSkippedTests(testSet.Tests)))
 }
 
+func TestJunitToTestSet_ErrorTest(t *testing.T) {
+	log.Info("TestJunitToTestSet_ErrorTest")
+	testSet, err := ToTestSet([]byte(getMockMochaXunitWithErrorTest()))
+	assert.NoError(t, err)
+	assert.Equal(t, 0.003, testSet.Time)
+	assert.Equal(t, 1, len(testSet.Tests))
+	assert.Equal(t, 1, testSet.Total, "Total")
+	assert.Equal(t, 0, testSet.Failures, "Failures")
+	assert.Equal(t, 1, testSet.Errors, "Errors")
+	assert.Equal(t, 0, testSet.Skipped, "Skipped") //if property not exist we return 0
+	assert.Equal(t, Error, testSet.Tests[0].Status, "Check Test's status")
+}
+
 func TestToTestSet_InvalidXML(t *testing.T) {
 	log.Info("TestToTestSet_InvalidXML")
 	_, err := ToTestSet([]byte("abc"))
