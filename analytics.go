@@ -13,6 +13,7 @@ type AnalyticsTest struct {
 	Name          string
 	Time          FloatNumber
 	Failure       string
+	Error         string
 	Status        string
 	NumericStatus int
 	TestSet       AnalyticsTestSet
@@ -33,6 +34,7 @@ func ToAnalyticsTests(junit []byte) ([]AnalyticsTest, error) {
 				Status:        currTest.Status,
 				Time:          FloatNumber(currTest.Time),
 				Failure:       currTest.Failure,
+				Error:         currTest.Error,
 				NumericStatus: toNumericStatus(currTest.Status),
 				TestSet:       analyticsTestSet})
 	}
