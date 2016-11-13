@@ -10,6 +10,7 @@ const (
 	Passed  = "Passed"
 	Skipped = "Skipped"
 	Failed  = "Failed"
+	Error = "Error"
 )
 
 type TestSet struct {
@@ -27,6 +28,7 @@ type Test struct {
 	Status  string
 	Time    float64
 	Failure string
+	Error   string
 }
 
 func ToTestSet(junit []byte) (*TestSet, error) {
@@ -49,6 +51,7 @@ func ToTestSet(junit []byte) (*TestSet, error) {
 				Name:    currTestCase.Name,
 				Time:    toFloat(currTestCase.Time),
 				Failure: currTestCase.Failure,
+				Error: currTestCase.Error,
 			}
 			test.Status = getStatus(currTestCase)
 			ret.Tests = append(ret.Tests, test)
@@ -69,6 +72,10 @@ func toFloat(val string) float64 {
 }
 
 func toInt(val string) int {
+	//property not exist - we return 0
+	if val == "" {
+		return 0
+	}
 	ret, err := strconv.Atoi(val)
 	if err != nil {
 		log.Error(err)
@@ -81,9 +88,12 @@ func toInt(val string) int {
 func getStatus(test JunitTestCase) string {
 	ret := Passed
 	if test.Skipped.Local != "" {
+		log.Info("local:", test.Skipped.Local)
 		ret = Skipped
 	} else if test.Failure != "" {
 		ret = Failed
+	} else if test.Error != "" {
+		ret = Error
 	}
 
 	return ret
